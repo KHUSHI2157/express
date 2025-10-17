@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        :root {
+	--bubbles: url('https://contentservice.mc.reyrey.net/image_v1.0.0/?id=fd9933b3-b13a-51d7-bd23-72e3cce8d659&637975576050571648');
+}
+
+html {
+	max-height: 100vh;
+	background: url('https://contentservice.mc.reyrey.net/image_v1.0.0/?id=80ff633d-8eaa-5f01-95bd-081b34086bb7&637975571952246836'), 
+		radial-gradient(75vw 75vw at 50% 100%, Lime, Green 25% 50%, indigo);
+	background-size: auto auto;
+	background-position: 50% 100%;
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-blend-mode: overlay;
+	FONT-FAMILY: SYSTEM-UI;
+	overflow: hidden;
+}
+
+#bricks {
+	--units: 1.5vmax;
+	--brick1: #CC0000;
+	--brick2: #DD0000;
+	--lines: #565656;
+	--gp-ln: 50%/calc(var(--units) * 10) calc(var(--units) * 5);
+	--gp-cn: 50%/calc(var(--units) * 5) calc(var(--units) * 5);
+	height: 100vh;
+	background: 
+		repeating-conic-gradient(from 90deg at 95% 55%, var(--lines) 0% 25%, #fff0 0% 100%) var(--gp-cn), 
+		repeating-linear-gradient(180deg, var(--lines) 0 5%, #fff0 0 50%, var(--lines) 0 55%, var(--brick2) 0 100% ) var(--gp-ln), 
+		repeating-linear-gradient(90deg, var(--brick1) 0 47.5%, var(--lines) 0 50%, var(--brick1) 0 97.5%, var(--lines) 0 100% ) var(--gp-ln);
+	inset: 0;
+	position: fixed;
+	z-index: -1;
+	mix-blend-mode: overlay;
+	opacity: .3;
+	pointer-events: none;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+h1 {
+	position: relative;
+	max-width: 450px;
+	text-align: center;
+	color: WHITE;
+	border-radius: 5px;
+	display: block;
+	margin: 2rem auto;
+	line-height: 100%;  
+	user-select: none;
+}
+
+#bubble_machine {
+	position: fixed;
+	left: 6vw;
+	bottom: 25px;
+	width: 88vw;
+	height: 100vh;
+	z-index: 9999;
+	pointer-events: none;
+}
+
+.bubble {
+	width: 100px;
+	aspect-ratio: 1 / 1;  
+	position: absolute;
+	top: 100%;
+	left: 0;
+	pointer-events: all;
+	user-select: none;
+	cursor: pointer;
+	display: grid;
+	place-items: center;
+	filter: drop-shadow(0px 3px 3px rgba(0,0,0,.05));
+	transform: translateX(-50%);
+	animation: bubble_float 10s linear forwards;
+}
+@keyframes bubble_float {
+	100% { 
+		top: -130px; 
+		transform: translateX(-50%); 
+	}
+}
+.bubble:after {
+	content:'';
+	width: 100%;
+	height:100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+	background-image: var(--bubbles);
+	background-size: auto 100%;
+	background-position: 0 0;
+}
+.pop_bubble {
+	pointer-events: none !important;
+}
+.pop_bubble:after {
+	animation: pop_bubble .3s steps(6) forwards;
+}
+@keyframes pop_bubble {
+	100% { 
+		transform: scale(2);
+		background-position: -600% 0;
+	}
+}
+
+#pot {
+	width: 95vw;
+	height:50px;
+	border-radius: 50px;
+	background: linear-gradient(to bottom, #333, black);
+	position: fixed;
+	bottom: 25px;
+	left: 2.5vw;	
+	z-index: 99999;
+	pointer-events: none;
+}
+
+#pot:after {
+	content: '';
+	width: 95vw;
+	height:150px;
+	border-radius: 50px;
+	background: black;
+	position: absolute;
+	top: 100%;
+	left: 0;
+}
+
+#spoon {
+	width: 600px;
+	height: 35px;
+	background: linear-gradient(to bottom, chocolate, saddlebrown);
+	border-radius: 25px;
+	position: absolute;
+	left: 0px;
+	bottom: 250px;
+	transform-origin: 0% 17.5px;
+	transform: rotate(65deg);
+	animation: spoon 15s linear infinite;
+	pointer-events: none;
+}
+@keyframes spoon {
+	25% {
+		bottom: 200px;
+	}
+	50% {
+		left: 100%;
+		transform: rotate(115deg);
+	}
+	75% {
+		bottom: 300px;
+	}
+}
+
+#bubs_counter {
+	position: fixed;
+	top: 1rem;
+	right: 1rem;
+	color: white;
+
+}
+#bubs_counter span {
+	display: block;
+	text-align: center;
+	font-size: 36px;
+	line-height: 75%;
+}
+
+#bubs_timer {
+	font-size: 550px;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	color: black;
+	font-weight: 900;
+	text-shadow: 5px 5px lime;
+	opacity: .3;
+	user-select: none;
+	pointer-events: none;
+	display: none;
+}
+.show_timer {
+	display: block !important;
+}
+
+
+    </style>
+</head>
+
+<body>
+
+
+    <div id='bricks'></div>
+    <h1 id='info'>POP AS MANY BUBBLES AS YOU CAN IN 10 SECONDS!</h1>
+    <div id='bubble_machine'></div>
+    <div id='spoon'></div>
+    <div id='pot'></div>
+
+    <div id='bubs_counter'>BUBS<span>0</span></div>
+    <div id='bubs_timer'>10</div>
+
+
+    <script>
+
+        const bm = document.querySelector('#bubble_machine'),
+			bcs = document.querySelector('#bubs_counter span'),
+			bubble_item = ['🎃', '🧟','🕷️','👻','🦇'],
+			bubble_rate = 333 //milliseconds per release
+
+let bc = 0,
+		bt = 10,
+		run_timer
+
+function addBubble() {
+	var b = document.createElement('div')
+	b.className = 'bubble'
+	b.innerHTML = bubble_item[Math.floor(Math.random()*bubble_item.length)]
+	let ww = (Math.random()*100) + 28
+	b.style.fontSize = ww * .5 + 'px'
+	b.style.width = ww + 'px'
+	b.style.left = Math.random()*95 + '%'
+	b.style.animationDuration = Math.floor(Math.random()*10) + 8 + 's'
+	b.onclick = function() {		
+		this.classList.add('pop_bubble')
+		var pop = new Audio('http://contentservice.mc.reyrey.net/audio_v1.0.0/?id=e049b733-1543-51fd-9ce9-680f57226aa1')
+		pop.play()
+
+		if(document.querySelector('.show_timer')){
+			bc++
+			bcs.innerText = bc
+		}
+
+		if(!document.querySelector('.show_timer') && bc == 0) {
+			bubs_timer.classList.add('show_timer')
+			bcs.innerText = bc
+			run_timer = setInterval(function(){
+				bt--
+				bubs_timer.innerText = bt
+
+				if(bt == 0) {
+					setTimeout(function(){
+						bubs_timer.classList.remove('show_timer')
+						clearInterval(run_timer)
+						let bubs = document.querySelectorAll('.bubble')
+						bubs.forEach(function(e){
+							e.click()
+						})
+						setTimeout(function(){
+							bc = 0
+							bt = 10
+							bubs_timer.innerText = bt
+						}, 5000)
+					}, 150)
+				}
+			}, 1000)
+		}
+	}
+	b.onanimationend = function() {
+		this.remove()
+	}  
+	bm.appendChild(b)
+
+	setTimeout(addBubble, bubble_rate)
+}
+
+addBubble()
+
+    </script>
+
+</body>
+
+</html>
