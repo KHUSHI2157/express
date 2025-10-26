@@ -39,8 +39,8 @@ const corsOptions = {
   methods: "GET,POST,PUT,DELETE",
   credentials: true, // if you ever send cookies
 }; 
-// app.use(cors())
-app.use(cors(corsOptions));
+app.use(cors())
+// app.use(cors(corsOptions));
 
 
 app.get("/" , (req, resp) => {
