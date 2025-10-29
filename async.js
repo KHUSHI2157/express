@@ -4,6 +4,8 @@ import fs from 'fs'
 fs.writeFile("text.txt", "this is bs" , (err) => {
     if(err) console.log("error")
         else console.log("done")
+
+
 })
 
 console.log("file created!!!")
