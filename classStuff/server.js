@@ -15,10 +15,41 @@ app.get('/ghost', (req, resp) => {
     console.log('url' , req.url)
 console.log("method" , req.method)
 
+
+
+
+if(req.url == '/'){
+    resp.send("this is root root")
+}
+
+else if(req.url === "/home"){
+    resp.send("this is home")
+}
+
+else if(req.url === "/play"){
+    resp.send("this is home")
+}
+
+else if(req.url === "/goat"){
+    resp.send("this is home")
+}
+
+else{
+    resp.send("match, not found")
+}
+
+
+
+
+
+
+
 resp.send(JSON.stringify({
     msg : "req successfull recieved",
     url : req.url
 }))
+
+
 
 
 
