@@ -7,4 +7,3 @@ function UseCallback1() {
   )
 }
 
-export default UseCallback1
